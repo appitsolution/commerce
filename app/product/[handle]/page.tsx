@@ -94,6 +94,22 @@ export default async function ProductPage({ params }: { params: { handle: string
 
           <div className="basis-full lg:basis-2/6">
             <ProductDescription product={product} />
+            <div className="checkout-form__field">
+                <label htmlFor="url">URL:</label>
+                <input type="text" id="url" name="url" placeholder="Enter URL" />
+            </div>
+
+            <div className="checkout-form__field">
+              <label htmlFor="id">ID:</label>
+              <input type="text" id="id" name="id" placeholder="Enter ID" />
+            </div>
+
+            <div className="checkout-form__field">
+                <label htmlFor="title">Title:</label>
+                <input type="text" id="title" name="title" placeholder="Enter Title" />
+            </div>
+
+            
           </div>
         </div>
         <Suspense>
