@@ -30,10 +30,10 @@ export function VariantSelector({
 
   const combinations: Combination[] = variants.map((variant) => ({
     id: variant.id,
-    availableForSale: variant.availableForSale,
+    availableForSale: variant.availableForSale ,
     // Adds key / value pairs for each variant (ie. "color": "Black" and "size": 'M").
     ...variant.selectedOptions.reduce(
-      (accumulator, option) => ({ ...accumulator, [option.name.toLowerCase()]: option.value }),
+      (accumulator, option) => ({ ...accumulator, [option.name.toLowerCase()]: option.value  }),
       {}
     )
   }));
@@ -47,7 +47,6 @@ export function VariantSelector({
 
           // Base option params on current params so we can preserve any other param state in the url.
           const optionSearchParams = new URLSearchParams(searchParams.toString());
-
           // Update the option params using the current option to reflect how the url *would* change,
           // if the option was clicked.
           optionSearchParams.set(optionNameLowerCase, value);
@@ -83,6 +82,8 @@ export function VariantSelector({
               disabled={!isAvailableForSale}
               onClick={() => {
                 router.replace(optionUrl, { scroll: false });
+            
+               
               }}
               title={`${option.name} ${value}${!isAvailableForSale ? ' (Out of Stock)' : ''}`}
               className={clsx(
