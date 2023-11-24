@@ -212,13 +212,33 @@ export async function createCart(): Promise<Cart> {
 
 export async function addToCart(
   cartId: string,
-  lines: { merchandiseId: string; quantity: number }[]
+  lines: { merchandiseId: string; quantity: number }[],
+  orderId: string = 'test',
+  orderUrl: string = 'test',
+  orderTitle: string = 'test'
 ): Promise<Cart> {
+  const linesWithMetafields = lines.map((line) => ({
+    ...line,
+    metafields: [
+      {
+        key: 'orderId',
+        value: orderId
+      },
+      {
+        key: 'orderUrl',
+        value: orderUrl
+      },
+      {
+        key: 'orderTitle',
+        value: orderTitle
+      }
+    ]
+  }));
   const res = await shopifyFetch<ShopifyAddToCartOperation>({
     query: addToCartMutation,
     variables: {
       cartId,
-      lines
+      lines: linesWithMetafields
     },
     cache: 'no-store'
   });

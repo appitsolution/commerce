@@ -13,7 +13,12 @@ export const addToCartMutation = /* GraphQL */ `
 
 export const createCartMutation = /* GraphQL */ `
   mutation createCart($lineItems: [CartLineInput!]) {
-    cartCreate(input: { lines: $lineItems }) {
+    cartCreate(
+      input: {
+        lines: $lineItems
+        metafields: { key: "orderId", value: $orderId, namespace: "order" }
+      }
+    ) {
       cart {
         ...cart
       }
