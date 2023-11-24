@@ -222,9 +222,7 @@ export async function addToCart(
     variables: {
       cartId,
       lines,
-      orderId,
-      orderUrl,
-      orderTitle
+      orderId
     },
     cache: 'no-store'
   });

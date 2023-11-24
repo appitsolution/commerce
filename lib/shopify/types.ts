@@ -154,8 +154,6 @@ export type ShopifyAddToCartOperation = {
       quantity: number;
     }[];
     orderId: string;
-    orderUrl: string;
-    orderTitle: string;
   };
 };
 
