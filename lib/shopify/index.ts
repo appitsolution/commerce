@@ -217,28 +217,14 @@ export async function addToCart(
   orderUrl: string = 'test',
   orderTitle: string = 'test'
 ): Promise<Cart> {
-  const linesWithMetafields = lines.map((line) => ({
-    ...line,
-    metafields: [
-      {
-        key: 'orderId',
-        value: orderId
-      },
-      {
-        key: 'orderUrl',
-        value: orderUrl
-      },
-      {
-        key: 'orderTitle',
-        value: orderTitle
-      }
-    ]
-  }));
   const res = await shopifyFetch<ShopifyAddToCartOperation>({
     query: addToCartMutation,
     variables: {
       cartId,
-      lines: linesWithMetafields
+      lines,
+      orderId,
+      orderUrl,
+      orderTitle
     },
     cache: 'no-store'
   });
