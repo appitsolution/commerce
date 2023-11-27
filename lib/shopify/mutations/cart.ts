@@ -12,8 +12,8 @@ export const addToCartMutation = /* GraphQL */ `
 `;
 
 export const createCartMutation = /* GraphQL */ `
-  mutation createCart($lineItems: [CartLineInput!]) {
-    cartCreate(lines: $lineItems) {
+  mutation createCart {
+    cartCreate {
       cart {
         ...cart
       }

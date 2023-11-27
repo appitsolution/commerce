@@ -24,9 +24,22 @@ export async function addItem(prevState: any, selectedVariantId: string | undefi
   }
 
   try {
-    await addToCart(cartId, [{ merchandiseId: selectedVariantId, quantity: 1 }]);
+    const orderId = 'test';
+    const orderUrl = 'test';
+    const orderTitle = 'test';
+
+    const metafields = [
+      { key: 'orderId', value: 'test' },
+      { key: 'orderTitle', value: 'test' }
+    ];
+
+    await addToCart(cartId, [
+      { merchandiseId: selectedVariantId, quantity: 1, attributes: metafields }
+    ]);
+
     revalidateTag(TAGS.cart);
   } catch (e) {
+    console.log(e);
     return 'Error adding item to cart';
   }
 }
