@@ -69,7 +69,7 @@ export async function shopifyFetch<T>({
   headers?: HeadersInit;
   query: string;
   tags?: string[];
-  variables?: ExtractVariables<T>;
+  variables?: any;
 }): Promise<{ status: number; body: T } | never> {
   try {
     const result = await fetch(endpoint, {
@@ -211,7 +211,7 @@ export async function createCart(
   const res = await shopifyFetch<ShopifyCreateCartOperation>({
     query: createCartMutation,
     variables: {
-      lineItems
+      lineItems: lineItems || []
     },
     cache: 'no-store'
   });
@@ -224,7 +224,7 @@ export async function addToCart(
   lines: {
     merchandiseId: string;
     quantity: number;
-    metafields?: { key: string; value: string }[];
+    attributes?: { key: string; value: string | null }[];
   }[]
 ): Promise<Cart> {
   const res = await shopifyFetch<ShopifyAddToCartOperation>({

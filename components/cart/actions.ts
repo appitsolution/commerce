@@ -1,6 +1,5 @@
 'use server';
 
-import useSessionStorage from 'hooks/useSessionStorage';
 import { TAGS } from 'lib/constants';
 import { addToCart, createCart, getCart, removeFromCart, updateCart } from 'lib/shopify';
 import { revalidateTag } from 'next/cache';
@@ -40,7 +39,15 @@ export async function addItem(
     ];
 
     await addToCart(cartId, [
-      { merchandiseId: data.selectedVariantId, quantity: 1, attributes: metafields }
+      {
+        merchandiseId: data.selectedVariantId,
+        quantity: 1,
+        attributes: [
+          { key: 'orderId', value: data.orderId },
+          { key: 'orderTitle', value: data.orderTitle },
+          { key: 'orderUrl', value: data.orderUrl }
+        ]
+      }
     ]);
 
     revalidateTag(TAGS.cart);

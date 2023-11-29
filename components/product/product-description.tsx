@@ -22,14 +22,14 @@ export function ProductDescription({ product }: { product: Product }) {
       <VariantSelector options={product.options} variants={product.variants} />
       <div className="checkout-form__field" style={{display: 'flex',marginBottom: 10}}>
         <label htmlFor="url" style={{width: 40,display: 'block'}}>URL:</label>
-        <input type="text" id="url" name="url" placeholder="Enter URL" style={{ marginLeft: 10 }} onInput={(value) => {
+        <input type="text" id="url" name="url" placeholder="Enter URL" style={{ marginLeft: 10 }} onInput={(value:React.ChangeEvent<HTMLInputElement>) => {
             sessionStorage.setItem('orderUrl',value.target.value)
           }}/>
       </div>
 
-      <div className="checkout-form__field" style={{display: 'flex',marginBottom: 10}}>
+      <div className="checkout-form__field" style={{display: 'flex',marginBottom:10}}>
         <label htmlFor="id" style={{width: 40,display: 'block'}}>ID:</label>
-        <input type="text" id="id" name="id" placeholder="Enter ID" style={{ marginLeft: 10 }} onInput={(value) => {
+        <input type="text" id="id" name="id" placeholder="Enter ID" style={{ marginLeft: 10 }} onInput={(value:React.ChangeEvent<HTMLInputElement>) => {
             sessionStorage.setItem('orderId',value.target.value)
           }}/>
       </div>
@@ -42,7 +42,7 @@ export function ProductDescription({ product }: { product: Product }) {
           name="title"
           placeholder="Enter Title"
           style={{ marginLeft: 10 }}
-          onInput={(value) => {
+          onInput={(value: React.ChangeEvent<HTMLInputElement>) => {
             sessionStorage.setItem('orderTitle',value.target.value)
           }}
         />
