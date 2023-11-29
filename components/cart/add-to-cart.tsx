@@ -79,7 +79,10 @@ export function AddToCart({
     )
   );
   const selectedVariantId = variant?.id || defaultVariantId;
-  const actionWithVariant = formAction.bind(null, selectedVariantId);
+  const orderTitle = window.sessionStorage.getItem('orderTitle')
+  const orderId = window.sessionStorage.getItem('orderId')
+  const orderUrl = window.sessionStorage.getItem('orderUrl')
+  const actionWithVariant = formAction.bind(null, {selectedVariantId: selectedVariantId,orderTitle: orderTitle,orderId,orderUrl});
 
   return (
     <form action={actionWithVariant}>

@@ -1,11 +1,20 @@
 'use server';
 
+import useSessionStorage from 'hooks/useSessionStorage';
 import { TAGS } from 'lib/constants';
 import { addToCart, createCart, getCart, removeFromCart, updateCart } from 'lib/shopify';
 import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
 
-export async function addItem(prevState: any, selectedVariantId: string | undefined) {
+export async function addItem(
+  prevState: any,
+  data: {
+    selectedVariantId: string | undefined;
+    orderTitle: string | null;
+    orderId: string | null;
+    orderUrl: string | null;
+  }
+) {
   let cartId = cookies().get('cartId')?.value;
   let cart;
 
@@ -19,22 +28,19 @@ export async function addItem(prevState: any, selectedVariantId: string | undefi
     cookies().set('cartId', cartId);
   }
 
-  if (!selectedVariantId) {
+  if (!data.selectedVariantId) {
     return 'Missing product variant ID';
   }
 
   try {
-    const orderId = 'test';
-    const orderUrl = 'test';
-    const orderTitle = 'test';
-
     const metafields = [
-      { key: 'orderId', value: 'test' },
-      { key: 'orderTitle', value: 'test' }
+      { key: 'orderId', value: data.orderId },
+      { key: 'orderTitle', value: data.orderTitle },
+      { key: 'orderUrl', value: data.orderUrl }
     ];
 
     await addToCart(cartId, [
-      { merchandiseId: selectedVariantId, quantity: 1, attributes: metafields }
+      { merchandiseId: data.selectedVariantId, quantity: 1, attributes: metafields }
     ]);
 
     revalidateTag(TAGS.cart);
